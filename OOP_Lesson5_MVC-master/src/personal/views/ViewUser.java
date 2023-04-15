@@ -38,11 +38,27 @@ public class ViewUser {
                     case UPDATE:
                         updateUser();
                         break;
+                    case DELETE:
+                        deleteUser();
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void deleteUser() throws Exception {
+        String id = prompt("Идентификатор пользователя: ");
+        User user = userController.readUser(id);
+        System.out.printf("Пользователь %s %s удаляется...",user.getFirstName(), user.getLastName());
+        System.out.println();
+        try {
+            userController.deleteUser(user);
+        } catch (RuntimeException e){
+            System.out.println("Получилось, но с косяками");
+        }
+
     }
 
     private void updateUser() throws Exception {
